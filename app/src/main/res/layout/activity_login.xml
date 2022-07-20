@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Authentication.Login_Activity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:id="@+id/sf"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New user? Sign up"
+        android:id="@+id/signup_btn"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#03A9F4"/>
+
+
+    <ImageView
+        android:layout_width="600px"
+        android:layout_height="600px"
+        android:id="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/sf"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/login_img"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="32dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="8dp"
+        app:cardElevation="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content"
+                android:text="Email"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:id="@+id/et_email"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="8dp"
+                android:background="@drawable/et_border1"
+                android:hint="Enter your email"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content"
+                android:text="Password"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:id="@+id/et_password"
+                android:inputType="textPassword"
+                android:paddingLeft="8dp"
+                android:background="@drawable/et_border1"
+                android:hint="Enter your password"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot password ?"
+                android:layout_marginStart="8dp"
+                android:id="@+id/forget_btn"
+                android:gravity="center"
+                android:textColor="#03A9F4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show password"
+                android:drawableLeft="@drawable/ic_show_pass"
+                android:layout_gravity="end"
+                android:id="@+id/show_btn"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:drawablePadding="4dp"
+                android:textColor="@color/green"/>
+
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"
+        android:id="@+id/login_btn"
+        android:background="@drawable/btn_border1"
+        android:textAllCaps="false"
+        android:text="Proceed ->"/>
+    </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
+</RelativeLayout>
