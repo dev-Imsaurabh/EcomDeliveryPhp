@@ -7,18 +7,18 @@
     tools:context=".Activities.CommonViewActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:padding="8dp"
         android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_height="wrap_content">
+        android:padding="8dp">
 
         <TextView
+            android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8sp"
             android:paddingStart="8dp"
-            android:id="@+id/info"
             android:text="Collect -------->"
             android:textColor="@color/green"
             android:textSize="12sp" />
@@ -38,10 +38,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="8dp"
             android:layout_below="@id/amount_txt"
-            android:background="#E8E6E6"/>
-
+            android:layout_marginTop="8dp"
+            android:background="#E8E6E6" />
 
 
     </RelativeLayout>
@@ -171,6 +170,16 @@
                 android:text="Receive Order"
                 android:visibility="gone"
                 android:id="@+id/receiveOrder"
+                android:background="@drawable/btn_border4"
+                android:padding="8dp"
+                android:textColor="@color/green">
+            </androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Picked up"
+                android:visibility="gone"
+                android:id="@+id/pickedup_btn"
                 android:background="@drawable/btn_border4"
                 android:padding="8dp"
                 android:textColor="@color/green">

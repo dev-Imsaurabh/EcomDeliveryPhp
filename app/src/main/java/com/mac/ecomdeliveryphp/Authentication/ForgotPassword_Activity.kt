@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -16,6 +17,8 @@ import com.mac.ecomdeliveryphp.databinding.ActivityForgotPasswordBinding
 class ForgotPassword_Activity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
     private val sendMail: String = Constants.baseUrl + "/sendMail.php"
+    private  val validateUrl:String = Constants.baseUrl+"/validate.php"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +41,8 @@ class ForgotPassword_Activity : AppCompatActivity() {
                 val otp: String = milis.substring(7, 13)
                 val email: String = binding.etForgotEmail.text.toString().trim()
                 val title = "reset password"
-                sendOTPforEmailVerification(email, otp, title,dialog)
+
+                ValidateUser(dialog,email,otp,title)
 
 
             } else {
@@ -103,6 +107,54 @@ class ForgotPassword_Activity : AppCompatActivity() {
         }
 
         val queue = Volley.newRequestQueue(this)
+        queue.add(request)
+
+    }
+
+
+    private fun ValidateUser(
+        dialog: Dialog,
+        email: String,
+        otp: String,
+        title: String,
+    ) {
+
+        val request: StringRequest = object : StringRequest(
+            Method.POST, validateUrl,
+            Response.Listener { response ->
+
+                if(response.equals("1")){
+                    sendOTPforEmailVerification(email, otp, title,dialog)
+                    dialog.dismiss()
+                }else{
+                    Toast.makeText(this,"Account does not exist", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+
+
+                }
+
+
+
+            },
+            Response.ErrorListener { error ->
+                dialog.dismiss()
+
+            }) {
+            override fun getParams(): Map<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                params["email"] = email
+                return params
+            }
+
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                params["Content-Type"] = "application/x-www-form-urlencoded"
+                return params
+            }
+        }
+
+        val queue: RequestQueue = Volley.newRequestQueue(this)
         queue.add(request)
 
     }

@@ -231,6 +231,7 @@ class MainActivity : AppCompatActivity() {
             when(position){
                 0->tab.text="Active"
                 1->tab.text="Delivered"
+                2->tab.text="Pickups"
 
             }
         }

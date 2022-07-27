@@ -51,7 +51,7 @@
             android:id="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@id/sf"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/signup_img"
+            android:src="@drawable/dimag1"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="32dp"/>
 

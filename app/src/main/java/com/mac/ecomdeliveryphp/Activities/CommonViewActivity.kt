@@ -34,6 +34,7 @@ class CommonViewActivity : AppCompatActivity() {
     private  var  OTP:String=""
     var manageOrderValue ="0"
     private lateinit var paymentM:String
+    private  lateinit var reason:String
     private lateinit var deliveredBy:String
     private val fetchUrl = Constants.baseUrl1 + "/Orders/getOrdersForUser.php"
     private val statusUrl = Constants.baseUrl + "/updateStatus.php"
@@ -49,7 +50,16 @@ class CommonViewActivity : AppCompatActivity() {
         getAllOrdersFromUserCart()
         ClickOnReceiveOrderBtn()
         ClickODeliverBtn();
+        ClickOnPickedUpBtn()
 
+
+    }
+
+    private fun ClickOnPickedUpBtn() {
+        binding.pickedupBtn.setOnClickListener {
+            val status ="refund"
+            updateSatus(status,"")
+        }
 
     }
 
@@ -117,6 +127,7 @@ class CommonViewActivity : AppCompatActivity() {
                             val productDescription: String = jsonObject.getString("productDescription")
                             val productRefundStatus: String = jsonObject.getString("productRefundStatus")
 
+
                             if(orderId.equals(inorderId)&&productId.equals(inproductId)){
                                 binding.productName.setText(productName)
                                 Picasso.get().load(Constants.baseUrl1+"/Products/ProductImages/"+productImage).into(binding.orderImage)
@@ -125,6 +136,8 @@ class CommonViewActivity : AppCompatActivity() {
                                 binding.productDeliveryDate.setText("Expected delivery date: "+getExpectedDate(productDeliveryDate))
                                 var orderdate = productOrderDate.toLong()*1000
                                 binding.orderDate.setText("Order date: "+getOrderDate(orderdate.toString()))
+                                reason=productDescription
+
                                 if(productPaymentMode.equals("cod")){
                                     binding.amountTxt.setText("Cash ₹"+intotal)
 
@@ -148,6 +161,21 @@ class CommonViewActivity : AppCompatActivity() {
                                 }else if(productTrackingStatus.equals("canceled")){
                                     binding.cv.visibility= GONE
                                     binding.receiveOrder.visibility= GONE
+                                }else if(productTrackingStatus.equals("returned")){
+                                    binding.rl.visibility=GONE
+                                    binding.productDeliveryDate.visibility= GONE
+                                    binding.pickedupBtn.visibility= VISIBLE
+                                    binding.productDescription.setText("Pickup the order")
+                                }else if(productTrackingStatus.equals("refund")){
+                                    binding.rl.visibility=GONE
+                                    binding.pickedupBtn.visibility= GONE
+                                    binding.productDeliveryDate.visibility= GONE
+                                    binding.productDescription.setText("Picked up successfully")
+                                }else if(productTrackingStatus.equals("refunded")){
+                                    binding.rl.visibility=GONE
+                                    binding.pickedupBtn.visibility= GONE
+                                    binding.productDeliveryDate.visibility= GONE
+                                    binding.productDescription.setText("Picked up successfully")
                                 }
 
                                 binding.orderId.setText("Order ID: "+orderId.split(",")[0])
@@ -245,15 +273,25 @@ class CommonViewActivity : AppCompatActivity() {
                     Toast.makeText(this,response,Toast.LENGTH_SHORT).show()
                     binding.receiveOrder.visibility= GONE
                     binding.cv.visibility= VISIBLE
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent())
+                    overridePendingTransition(0, 0);
 
                 }else if(response.equals("delivered")){
                     dialog.dismiss()
                     Toast.makeText(this,response,Toast.LENGTH_SHORT).show()
                     finish()
 
+                }else if(response.equals("Pickup successful")){
+                    binding.productDescription.setText("Picked up successfully")
+                    binding.pickedupBtn.visibility= GONE
+                    dialog.dismiss()
+
                 }else{
                     dialog.dismiss()
                     Toast.makeText(this,response,Toast.LENGTH_SHORT).show()
+
                 }
 
             },
@@ -273,6 +311,7 @@ class CommonViewActivity : AppCompatActivity() {
                 params["status"] = status
                 params["orderManagerId"] = inorderManagerId
                 params["deluid"] = "del"+uid
+                params["reason"] = reason+"\n--->Pickup successful ! Refund process initiated"
                 params["otp"]=System.currentTimeMillis().toString().substring(7,13) +" OTP for delivery"
                 if(status.equals("delivered")){
                     if(paymentM.equals("cod")){

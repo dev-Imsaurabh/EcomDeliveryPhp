@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mac.ecomdeliveryphp.Fragments.ActiveFragment
 import com.mac.ecomdeliveryphp.Fragments.DeliveredFragment
+import com.mac.ecomdeliveryphp.Fragments.PickupFragment
 
 abstract class DelPagerAdapter{
 
@@ -14,7 +15,7 @@ abstract class DelPagerAdapter{
 
         override fun getItemCount(): Int {
 
-            return 2
+            return 3
 
         }
 
@@ -23,6 +24,7 @@ abstract class DelPagerAdapter{
             return when(position){
                 0-> ActiveFragment()
                 1->DeliveredFragment()
+                2->PickupFragment()
 
                 else->ActiveFragment()
             }

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="8dp"
-            android:text="You email is not verified ! Please verify"
+            android:text="You email is not verified ! Please verify\nyour email to receive orders"
             android:textColor="#FB0000" />
 
         <androidx.appcompat.widget.AppCompatButton
